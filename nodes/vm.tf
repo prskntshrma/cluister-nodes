@@ -45,3 +45,17 @@ resource "azurerm_linux_virtual_machine" "vm" {
     version   = "latest"
   }
 }
+resource "azurerm_virtual_machine_extension" "docker-install" {
+  name                 = "docker-install"
+  virtual_machine_id   = azurerm_virtual_machine.vm.id
+  publisher            = "Microsoft.Azure.Extensions"
+  type                 = "CustomScript"
+  type_handler_version = "2.0"
+
+  settings = <<SETTINGS
+    {   "fileUris": ["https://raw.githubusercontent.com/prskntshrma/cluister-nodes/master/script.sh"],
+        "commandToExecute": "sh script.sh"
+    }
+SETTINGS
+
+}
