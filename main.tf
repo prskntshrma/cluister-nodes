@@ -21,7 +21,7 @@ module "nodes" {
   subnet_id = azurerm_subnet.subnet.id
   rgname    = azurerm_resource_group.k8s-lab.name
   location  = var.location
-  for_each  = toset(["master", "node01", "node02", "node03"])
+  for_each  = toset(["base", "master", "node01", "node02"])
   prefix    = each.key
 
 }
